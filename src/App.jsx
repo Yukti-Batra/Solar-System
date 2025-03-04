@@ -1,6 +1,6 @@
 import React from "react"
 import './App.css'
-import SolarSystem from './Pages/SolarSytem'
+import SolarSystem from './Pages/SolarSystem'
 
 function App() {
   return (
