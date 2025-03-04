@@ -1,8 +1,8 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 
-// Your Firebase config
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyCqyocGJvlytZenFIlTEnft3c7Jp3CpkQA",
   authDomain: "solar-system-82514.firebaseapp.com",
@@ -10,7 +10,7 @@ const firebaseConfig = {
   storageBucket: "solar-system-82514.appspot.com",
   messagingSenderId: "110472679956",
   appId: "1:110472679956:web:ba3c6b7acabd9e305c0d01",
-  measurementId: "G-1BD82CDBTH"
+  measurementId: "G-1BD82CDBTH",
 };
 
 // Initialize Firebase
@@ -18,4 +18,32 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const analytics = getAnalytics(app);
 
-export { db };
+// Function to save solar system configuration
+const saveConfig = async (planets) => {
+  try {
+    const docRef = await addDoc(collection(db, "solar-configs"), {
+      planets,
+      timestamp: new Date(),
+    });
+    console.log("Configuration saved with ID: ", docRef.id);
+  } catch (error) {
+    console.error("Error saving configuration: ", error);
+  }
+};
+
+// Function to load saved configurations
+const loadConfigs = async () => {
+  try {
+    const querySnapshot = await getDocs(collection(db, "solar-configs"));
+    const configs = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return configs;
+  } catch (error) {
+    console.error("Error loading configurations: ", error);
+    return [];
+  }
+};
+
+export { db, saveConfig, loadConfigs }
