@@ -25,9 +25,11 @@ const saveConfig = async (planets) => {
       throw new Error("Invalid planets data");
     }
 
+    console.log('planets: ', planets)
+
     const docRef = await addDoc(collection(db, "solar-configs"), {
       planets,
-      timestamp: serverTimestamp(), // Use Firestore server timestamp
+      timestamp: serverTimestamp(),
     });
     console.log("Configuration saved with ID: ", docRef.id);
   } catch (error) {
@@ -48,6 +50,6 @@ const loadConfigs = async () => {
     console.error("Error loading configurations: ", error);
     return [];
   }
-};
+}
 
-export { db, saveConfig, loadConfigs };
+export { db, saveConfig, loadConfigs }

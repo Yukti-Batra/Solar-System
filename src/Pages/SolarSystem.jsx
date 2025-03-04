@@ -6,7 +6,7 @@ import { OrbitControls } from "@react-three/drei"
 import Sun from "../Components/Sun"
 import Planet from "../Components/Planet"
 import ControlPanel from "./ControlPanel"
-import { saveConfig, loadConfigs } from "../firebase" // Firebase functions
+import { saveConfig, loadConfigs } from "../firebase"
 
 import mercuryTexture from "../assets/mercury.jpg"
 import venusTexture from "../assets/venus.jpg"
@@ -145,4 +145,3 @@ const SolarSystem = () => {
 }
 
 export default SolarSystem
-
