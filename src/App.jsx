@@ -1,4 +1,5 @@
 import React from "react"
+import './App.css'
 import SolarSystem from './Pages/SolarSytem'
 
 function App() {
