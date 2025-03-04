@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
+import { getFirestore, collection, addDoc, getDocs, serverTimestamp } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 
 // Firebase config
@@ -12,7 +12,7 @@ const firebaseConfig = {
   appId: "1:110472679956:web:ba3c6b7acabd9e305c0d01",
   measurementId: "G-1BD82CDBTH",
 };
-// save config
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -21,9 +21,13 @@ const analytics = getAnalytics(app);
 // Function to save solar system configuration
 const saveConfig = async (planets) => {
   try {
+    if (!planets || typeof planets !== "object") {
+      throw new Error("Invalid planets data");
+    }
+
     const docRef = await addDoc(collection(db, "solar-configs"), {
       planets,
-      timestamp: new Date(),
+      timestamp: serverTimestamp(), // Use Firestore server timestamp
     });
     console.log("Configuration saved with ID: ", docRef.id);
   } catch (error) {
@@ -46,4 +50,4 @@ const loadConfigs = async () => {
   }
 };
 
-export { db, saveConfig, loadConfigs }
+export { db, saveConfig, loadConfigs };
