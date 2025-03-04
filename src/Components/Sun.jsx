@@ -9,13 +9,12 @@ const Sun = () => {
 
   return (
     <group>
-      {/* 🌞 Sun with softer glow */}
       <Sphere args={[2, 64, 64]}>
         <meshStandardMaterial 
           attach="material" 
           map={texture}
-          emissive={new THREE.Color(0xffaa00)} // Warm orange glow
-          emissiveIntensity={1.5} // 🔥 Softer glow
+          emissive={new THREE.Color(0xffaa00)}
+          emissiveIntensity={1.5}
           metalness={0.3} 
           roughness={0.5} 
         />
